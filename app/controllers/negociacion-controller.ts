@@ -1,3 +1,4 @@
+import { medirTiempoEjecucion } from "../decorators/medir-tiempo-ejecucion.js";
 import { Negociacion } from "../models/negociacion.js";
 import { Negociaciones } from '../models/negociaciones.js';
 import { NegociacionesView } from "../views/negociaciones-view.js";
@@ -19,6 +20,7 @@ export class NegociacionController {
         this.negociacionesView.update(this.negociaciones);
     }
 
+    @medirTiempoEjecucion()
     public agrega() : void {
         /*
             Equipo, recordar crear la negociación con métodos estáticos
