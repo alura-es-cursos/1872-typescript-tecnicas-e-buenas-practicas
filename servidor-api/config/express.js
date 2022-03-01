@@ -1,4 +1,4 @@
-/* Código simplório, apenas para fornecer o serviço para a aplicação */
+/* Código simple, solo para habilitar una api REST */
 
 var express = require('express')
     ,app = express()

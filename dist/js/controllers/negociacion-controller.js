@@ -12,11 +12,13 @@ import { MensajeView } from '../views/mensaje-view.js';
 import { diasSemana } from '../enums/dias-semana.js';
 import { inspector } from "../decorators/inspector.js";
 import { domInjector } from "../decorators/dom-injector.js";
+import { NegociacionesService } from "../services/negociacionesService.js";
 export class NegociacionController {
     constructor() {
         this.negociaciones = new Negociaciones();
         this.negociacionesView = new NegociacionesView('#negociacionesView');
         this.mensajeView = new MensajeView('#mensajeview');
+        this.negociacionesService = new NegociacionesService();
         this.negociacionesView.update(this.negociaciones);
     }
     agrega() {
@@ -28,6 +30,15 @@ export class NegociacionController {
         this.negociaciones.agrega(negociacion);
         this.actualizaVistas();
         this.limpiaFormulario();
+    }
+    importaDatos() {
+        this.negociacionesService.obtenerNegociacionesAPI()
+            .then((negociaciones) => {
+            for (let negociacion of negociaciones) {
+                this.negociaciones.agrega(negociacion);
+            }
+            this.negociacionesView.update(this.negociaciones);
+        });
     }
     esDiaComercial(fecha) {
         return fecha.getDay() > diasSemana.DOMINGO

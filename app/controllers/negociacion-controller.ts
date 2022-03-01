@@ -6,6 +6,7 @@ import { MensajeView } from '../views/mensaje-view.js';
 import { diasSemana } from '../enums/dias-semana.js';
 import { inspector } from "../decorators/inspector.js";
 import { domInjector } from "../decorators/dom-injector.js";
+import { NegociacionesService } from "../services/negociacionesService.js";
 
 export class NegociacionController {
     @domInjector('#fecha')
@@ -18,6 +19,7 @@ export class NegociacionController {
     private negociaciones = new Negociaciones();
     private negociacionesView = new NegociacionesView('#negociacionesView');
     private mensajeView = new MensajeView('#mensajeview');
+    private negociacionesService = new NegociacionesService();
 
     constructor() {
         this.negociacionesView.update(this.negociaciones);
@@ -40,6 +42,17 @@ export class NegociacionController {
         this.negociaciones.agrega(negociacion);
         this.actualizaVistas();
         this.limpiaFormulario();
+    }
+
+    public importaDatos() {
+        this.negociacionesService.obtenerNegociacionesAPI()
+            .then((negociaciones)=> {
+                for(let negociacion of negociaciones) {
+                    this.negociaciones.agrega(negociacion)
+                }
+                this.negociacionesView.update(this.negociaciones);
+                
+            });
     }
 
     private esDiaComercial(fecha: Date) : boolean {
