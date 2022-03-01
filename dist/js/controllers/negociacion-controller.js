@@ -11,14 +11,12 @@ import { NegociacionesView } from "../views/negociaciones-view.js";
 import { MensajeView } from '../views/mensaje-view.js';
 import { diasSemana } from '../enums/dias-semana.js';
 import { inspector } from "../decorators/inspector.js";
+import { domInjector } from "../decorators/dom-injector.js";
 export class NegociacionController {
     constructor() {
         this.negociaciones = new Negociaciones();
         this.negociacionesView = new NegociacionesView('#negociacionesView');
         this.mensajeView = new MensajeView('#mensajeview');
-        this.inputFecha = document.querySelector('#fecha');
-        this.inputCantidad = document.querySelector('#cantidad');
-        this.inputValor = document.querySelector('#valor');
         this.negociacionesView.update(this.negociaciones);
     }
     agrega() {
@@ -46,6 +44,15 @@ export class NegociacionController {
         this.mensajeView.update('La negociación fue registrada exitosamente');
     }
 }
+__decorate([
+    domInjector('#fecha')
+], NegociacionController.prototype, "inputFecha", void 0);
+__decorate([
+    domInjector('#cantidad')
+], NegociacionController.prototype, "inputCantidad", void 0);
+__decorate([
+    domInjector('#valor')
+], NegociacionController.prototype, "inputValor", void 0);
 __decorate([
     inspector,
     medirTiempoEjecucion()
