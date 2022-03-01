@@ -1,7 +1,9 @@
+import { escapar } from '../decorators/escapar.js';
 import { Negociaciones } from '../models/negociaciones.js';
 import { View } from './view.js';
 export class NegociacionesView extends View<Negociaciones> {
     
+    @escapar 
     protected template(model: Negociaciones) : string {
         return `
         <table class="table">
@@ -23,6 +25,7 @@ export class NegociacionesView extends View<Negociaciones> {
                 `;
             }).join('')}
             </tbody>
+            <script>alert('hola')</script>
         </table>
         `;
     }

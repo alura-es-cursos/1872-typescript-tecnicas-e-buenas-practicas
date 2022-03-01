@@ -1,16 +1,11 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Negociaciones = void 0;
-var Negociaciones = (function () {
-    function Negociaciones() {
+export class Negociaciones {
+    constructor() {
         this.negociaciones = [];
     }
-    Negociaciones.prototype.agrega = function (negociacion) {
+    agrega(negociacion) {
         this.negociaciones.push(negociacion);
-    };
-    Negociaciones.prototype.lista = function () {
+    }
+    lista() {
         return this.negociaciones;
-    };
-    return Negociaciones;
-}());
-exports.Negociaciones = Negociaciones;
+    }
+}

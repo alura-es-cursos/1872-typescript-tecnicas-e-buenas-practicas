@@ -4,11 +4,13 @@ import { Negociaciones } from '../models/negociaciones.js';
 import { NegociacionesView } from "../views/negociaciones-view.js";
 import { MensajeView } from '../views/mensaje-view.js';
 import { diasSemana } from '../enums/dias-semana.js';
+import { inspector } from "../decorators/inspector.js";
 
 export class NegociacionController {
     private inputFecha: HTMLInputElement;
     private inputCantidad: HTMLInputElement;
     private inputValor: HTMLInputElement;
+
     private negociaciones = new Negociaciones();
     private negociacionesView = new NegociacionesView('#negociacionesView');
     private mensajeView = new MensajeView('#mensajeview');
@@ -20,6 +22,7 @@ export class NegociacionController {
         this.negociacionesView.update(this.negociaciones);
     }
 
+    @inspector
     @medirTiempoEjecucion()
     public agrega() : void {
         /*

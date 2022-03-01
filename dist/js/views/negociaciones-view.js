@@ -1,36 +1,41 @@
-"use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.NegociacionesView = void 0;
-var view_js_1 = require("./view.js");
-var NegociacionesView = (function (_super) {
-    __extends(NegociacionesView, _super);
-    function NegociacionesView() {
-        return _super !== null && _super.apply(this, arguments) || this;
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+import { escapar } from '../decorators/escapar.js';
+import { View } from './view.js';
+export class NegociacionesView extends View {
+    template(model) {
+        return `
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Cantidad</th>
+                    <th>Valor</th>
+                </tr>
+            </thead>
+            <tbody>
+            ${model.lista().map(e => {
+            return `
+                <tr>
+                    <td>${this.formatearFecha(e.fecha)}</td>
+                    <td>${e.cantidad}</td>
+                    <td>${e.valor}</td>
+                </tr>
+                `;
+        }).join('')}
+            </tbody>
+            <script>alert('hola')</script>
+        </table>
+        `;
     }
-    NegociacionesView.prototype.template = function (model) {
-        var _this = this;
-        return "\n        <table class=\"table\">\n            <thead>\n                <tr>\n                    <th>Fecha</th>\n                    <th>Cantidad</th>\n                    <th>Valor</th>\n                </tr>\n            </thead>\n            <tbody>\n            " + model.lista().map(function (e) {
-            return "\n                <tr>\n                    <td>" + _this.formatearFecha(e.fecha) + "</td>\n                    <td>" + e.cantidad + "</td>\n                    <td>" + e.valor + "</td>\n                </tr>\n                ";
-        }).join('') + "\n            </tbody>\n        </table>\n        ";
-    };
-    NegociacionesView.prototype.formatearFecha = function (fecha) {
+    formatearFecha(fecha) {
         return new Intl.DateTimeFormat().format(fecha);
-    };
-    return NegociacionesView;
-}(view_js_1.View));
-exports.NegociacionesView = NegociacionesView;
+    }
+}
+__decorate([
+    escapar
+], NegociacionesView.prototype, "template", null);
